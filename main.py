@@ -1,4 +1,5 @@
 # Actividad de galletas
+from pruebas import cookies
 
 
 class Cookie:
@@ -6,6 +7,7 @@ class Cookie:
         self.name = name
         self.price = price
         self.weight = weight
+        self.cookies = {}
 
     def info(self):
         print("Informacion de la galleta")
@@ -14,16 +16,13 @@ class Cookie:
               f"Precio: {self.price}\n"
               f"Peso: {self.weight}\n")
 
-class AddCookies:
-    def __init__(self):
-        self.cookies = {}
     def new(self):
         while True:
-            cookie_name = input("Ingresa el nombre de la galleta 🍪: ")
+            cookie_name = input("Ingresa el nombre de la galleta 🍪: ").lower()
             if cookie_name == "":
                 print("Debes ingresar un nombre a la galleta")
             elif cookie_name in self.cookies:
-                print("Debes ingresar un nombre a la galleta")
+                print("Este nombre ya existe, ingresa un nuevo nombre")
             else:
                 break
         while True:
@@ -51,11 +50,38 @@ class AddCookies:
             except Exception as e:
                 print("Ocurrio un error inesperado", e)
 
+    def search(self):
+        if not self.cookies:
+            print("No se ha encontrado la galleta")
+        else:
+            for i, cookie in enumerate(self.cookies.values(), start=1):
+                print(f"{i}: {cookie.info()}")
+
+    def delete(self):
+        if not self.cookies:
+            print("No se ha encontrado la galleta")
+        else:
+            search = input("Ingrese el nombre de la galleta que quieres eliminar: ")
+            if search in self.cookies:
+                del self.cookies[search]
+                print("El galleta eliminado exitosamente")
+            else:
+                print("No se ha encontrado la galleta")
 
 class ChocOokie(Cookie):
     def __init__(self, name, price, weight, amount):
         super().__init__(name, price, weight)
         self.amount = amount
+
+    def spark(self):
+        while True:
+            self.amount =  int(input("Ingrese la cantidad de chispas que quiere: "))
+            if self.amount <= 0:
+                print("Debes ingresar un numero mayor a cero")
+            else:
+                self.cookies[self.name] = Cookie(self.name, self.amount, self.weight)
+                break
+
 
     def info(self):
         print("Datos de la galleta\n"
@@ -78,3 +104,21 @@ class CrambleCookies(Cookie, CookieStuff):
               f"Precio: {self.price}\n"
               f"Peso: {self.weight}\n"
               f"Cantidad de chispas: {self.stuff}")
+
+
+
+while True:
+    print("Tienda de galletas\n"
+          "1. Crear galleta\n"
+          "2. Crear galleta con chispas\n"
+          "3. Crear galleta con relleno\n"
+          "4. Listar galletas\n"
+          "5. Buscar galleta\n"
+          "6. Eliminar galleta\n"
+          "7. Salir\n")
+    select = input("Ingrese una de estas opciones: ")
+    match select:
+        case "1":
+            pass
+        case "2":
+            pass
